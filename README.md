@@ -1,19 +1,19 @@
 # IVR
-**Assignment 1** 
+*Assignment 1* 
 
-**Computer Vision – Playing Card Detection**  
+*Computer Vision – Playing Card Detection*  
 
-**Intro to Vision & Robotics: Spring 2015** 
+*Intro to Vision & Robotics: Spring 2015* 
 
 ---------- 
 
-**Due:**	Program due 4pm Thursday February 26 ;  
+*Due:*	Program due 4pm Thursday February 26 ;  
 	  
 
 Current status & instructions:
 <ol>
 <li>load & set variable  for original image
-  <li>original = imread('train1.jpg');
+  <ul><li>original = imread('train1.jpg');</ul>
 <li>segment image & set variable (produces a binary image)
   <li>binary = segmentimage('train1.jpg', 0);
 <li>Use binary image to produce color image of items past the threshold
