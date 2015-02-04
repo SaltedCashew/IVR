@@ -13,9 +13,9 @@
 Current status & instructions:
 <ol>
 <li>load & set variable  for original image
-  <ul><li>original = imread('train1.jpg');</ul>
+  <ul><li>original = imread('train2.jpg');</ul>
 <li>segment image & set variable (produces a binary image)
-  <ul><li>binary = segmentimage('train1.jpg', 0);</ul>
+  <ul><li>binary = segmentimage('train2.jpg', 0);</ul>
 <li>Use binary image to produce color image of items past the threshold
   <ul><li>colorDetect(original, binary);</ul>
 </ol>
