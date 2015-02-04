@@ -22,3 +22,5 @@ Current status & instructions:
 
 <br><br>
 This will produce 3 figures: the original image, the color image with threshold applied, and the three color band histograms.
+<br>
+This wraps up this week's lab and takes it a bit further in the hopes of detecting the card color.
