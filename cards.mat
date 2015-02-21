@@ -1,0 +1,4 @@
+cardsnames = [2-Clubs, 2-Hearts, 2-Spades, 2-Diamonds, 3-Spades,3-Hearts, 3-Spades, 3-Diamonds, 4-Clubs, 4-Hearts, 4-Spades, 4-Diamonds, 5-Spades, 5-Diamonds, 6-Clubs, 6-Hearts, 6-Spades, 6-Diamonds, 7-Clubs, 7-Hearts, 7-Spades, 7-Diamonds, 8-Clubs, 8-Hearts, 8-Spades, 8-Diamonds, 9-Clubs, 9-Hearts, 9-Spades, 9-Diamonds];
+
+imagenames = ['train1.jpg', 'train2.jpg',  'train3.jpg','train4.jpg','train5.jpg','train6.jpg','train7.jpg','train8.jpg','train9.jpg', 'train10.jpg', 'train11.jpg',  'train12.jpg','train13.jpg','train14.jpg','train15.jpg','train16.jpg','train17.jpg','train18.jpg', ...
+   'train19.jpg', 'train20.jpg',  'train21.jpg','train22.jpg','train23.jpg','train24.jpg','train25.jpg','train26.jpg','train27.jpg', 'train28.jpg', 'train29.jpg',  'train30.jpg','train31.jpg','train32.jpg'];

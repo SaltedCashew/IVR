@@ -8,9 +8,9 @@ function binary = segmentimage(localImage, show)
     fontSize = 20;
     loaded = importdata(localImage,'jpg');
     localHist = dohist(localImage, 0);
-    sublevel = findthresh(localHist, 6, 0);
+    sublevel = findthresh(localHist, 8, 0);
     level = sublevel/400;
-    binary = im2bw(loaded, level);
+    binary = ~im2bw(loaded, level); %added ~ to coincide with lab requirement
     if show>0
         imshow(binary)
     end

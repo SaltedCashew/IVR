@@ -1,0 +1,14 @@
+
+function main = cardDriver(image, show)
+binaryimage = segmentimage(image, show);
+imagefeatures = getproperties(binaryimage);
+main = imagefeatures;
+
+
+
+
+
+
+
+
+end
