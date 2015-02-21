@@ -11,16 +11,10 @@
 	  
 
 Current status & instructions:
-<ol>
-<li>load & set variable  for original image
-  <ul><li>original = imread('train2.jpg');</ul>
-<li>segment image & set variable (produces a binary image)
-  <ul><li>binary = segmentimage('train2.jpg', 0);</ul>
-<li>Use binary image to produce color image of items past the threshold
-  <ul><li>colorDetect(original, binary);</ul>
-</ol>
+
+Currently not using color detection. Working on bounding boxes.
+<ul><li> cardDriver('train2.jpg') </li></ul>
+
 
 <br><br>
-This will produce 3 figures: the original image, the color image with threshold applied, and the three color band histograms.
-<br>
-This wraps up this week's lab and takes it a bit further in the hopes of detecting the card color.
+This will produce 1 image: the binary image with bounding boxes.
