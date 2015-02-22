@@ -22,7 +22,7 @@ function color = colorDetect(originalImage, binaryImage)
             end
         end
     end
-    
+    color = c;
    figure;
     imshow(c);
     title('Binary Image', 'FontSize', 10);
