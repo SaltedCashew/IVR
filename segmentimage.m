@@ -5,8 +5,9 @@ function morphedimage = segmentimage(localImage, show)
     close all; % Close all figures (except those of imtool.)
     imtool close all; % Close all imtool figures.
     workspace; % Make sure the workspace panel is showing.
-    fontSize = 20;
-    loaded = importdata(localImage,'jpg');
+    %fontSize = 20;
+    imshow(localImage);
+    loaded = localImage; %importdata(localImage,'jpg');
     gI = rgb2gray(loaded);
 
  
@@ -16,11 +17,11 @@ function morphedimage = segmentimage(localImage, show)
     sublevel = findthresh(localHist, 8, 0);
     disp(sublevel);
     
-    level = sublevel/400;
+    level = sublevel/256;
     binary = ~im2bw(gI, level); %added ~ to coincide with lab requirement
     if show>0
         imshow(binary)
     end
-    morphedimage = bwmorph(binary, 'open',1);
+    morphedimage = binary; %bwmorph(binary, 'open',1);
     imshow(morphedimage);
 end

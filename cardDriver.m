@@ -1,6 +1,8 @@
 
 function main = cardDriver(image, show)
-binaryimage = segmentimage(image, show);
+normalizedImage = rgbNormalization(image, show);
+imshow(normalizedImage);
+binaryimage = segmentimage(normalizedImage, show);
 %binaryimage = segmentimage2(image, show);
 imagefeatures = getproperties(binaryimage);
 main = imagefeatures;
