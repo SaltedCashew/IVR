@@ -1,39 +1,43 @@
 
 function main = cardDriver(image, show)
 
-% if the card is red, use rgbNormalization to make intensity uniform
-normalizedImage = rgbNormalization(image, show);
-
-
-% if the card is black, use some other method
-% black method here....
-%normalizedImage = importdata(image,'jpg');
 original = imread(image);
 guessedColor = color(original);
 disp(guessedColor);
-background = imopen(original,strel('disk',5));
-test = (background) + original;
-imshow(normalizedImage);
-binaryimage = segmentimage(test, show);
-morphedimage = bwmorph(binaryimage, 'open',1);
+
+% if the card is red, use rgbNormalization to make intensity uniform
+if(strcmp(guessedColor, 'red')==1)
+    normalizedImage = rgbNormalization(image, show);
+    if (show==1)
+        imshow(normalizedImage);
+    end
+    binaryimage = segmentimage(normalizedImage, guessedColor, show);
+
+    % if the card is black, use some other method
+    % black method here....
+    %normalizedImage = importdata(image,'jpg');
+else
+    background = imopen(original,strel('disk',5));
+    test = (background) + original;
+
+    binaryimage = segmentimage(test, show);
+end
 
 
 
-%colorOnly = colorDetect(original, morphedimage);
-
-imagefeatures = getproperties(morphedimage);
+imagefeatures = getproperties(binaryimage);
 main = imagefeatures;
 
-figure, imshow(morphedimage), title('binary image')
+figure, imshow(binaryimage), title('binary image')
 
 
 
-[label num] = bwlabel(morphedimage);
+[label num] = bwlabel(binaryimage);
 
 props = regionprops(label);
 box = [props.BoundingBox];
 box = reshape(box, [4 num]);
-imshow(morphedimage);
+imshow(binaryimage);
 
 hold on;
 for cnt = 1:num
