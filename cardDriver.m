@@ -11,7 +11,7 @@ normalizedImage = rgbNormalization(image, show);
 imshow(normalizedImage);
 binaryimage = segmentimage(normalizedImage, show);
 morphedimage = bwmorph(binaryimage, 'open',1);
-colorOnly = colorDetect(image, ~morphedimage);
+%colorOnly = colorDetect(image, ~morphedimage);
 
 imagefeatures = getproperties(binaryimage);
 main = imagefeatures;
