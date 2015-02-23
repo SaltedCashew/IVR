@@ -6,7 +6,7 @@ normalizedImage = rgbNormalization(image, show);
 
 % if the card is black, use some other method
 % black method here....
-%normalizedImage = importdata(image,'jpg');
+normalizedImage = 
 
 imshow(normalizedImage);
 binaryimage = segmentimage(normalizedImage, show);

@@ -15,6 +15,11 @@ function normalized_image = rgbNormalization(localImage, show)
     for i = 1:r
         for j = 1:c
             
+            value = rgb_image(r,c);
+            if value > 128 
+               disp(val 
+            end
+            
             % get rgb values for each pixel
             red = red_image(i,j);
             green = green_image(i,j);
