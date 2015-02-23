@@ -17,7 +17,7 @@ function binary = segmentimage(localImage, show)
     sublevel = findthresh(localHist, 8, 0);
     disp(sublevel);
     
-    level = sublevel/256;
+    level = sublevel/400;
     binary = ~im2bw(gI, level); %added ~ to coincide with lab requirement
     if show>0
         imshow(binary)

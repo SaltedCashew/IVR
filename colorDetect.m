@@ -1,10 +1,12 @@
 function color = colorDetect(originalImage, binaryImage)
-    close all; % Close all figures (except those of imtool.)
-    imtool close all; % Close all imtool figures.
+%     close all; % Close all figures (except those of imtool.)
+%     imtool close all; % Close all imtool figures.
     a = size(originalImage); %if this is in color, it will be a 3D array
     b = size(binaryImage);   %Should be a 2D binary image array
     c = originalImage;
 
+    disp(a);
+    disp(b);
     if ( a(1, 1:2) ~= b(1, 1:2) )  %only looks at first two elements for larger than 2D array
         color = 0;
         return;
@@ -15,10 +17,12 @@ function color = colorDetect(originalImage, binaryImage)
     figure;
     imshow(originalImage);
      title('Original Image', 'FontSize', 10);
+     
+   
     for i=1:columns % pixel columns of image
         for j=1:rows % pixel rows
-            if (binaryImage(i,j) == 1)
-               c(i,j,:)=[255,255,255];  
+            if (binaryImage(i,j) == 0)
+               c(i,j,:)=[255,255,255];
             end
         end
     end
@@ -30,6 +34,12 @@ function color = colorDetect(originalImage, binaryImage)
     redPlane = c(:, :, 1);
     greenPlane = c(:, :, 2);
     bluePlane = c(:, :, 3);
+    figure
+    imshow(redPlane);
+    figure
+    imshow(greenPlane);
+    figure
+    imshow(bluePlane);
     figure;
     	% Compute and plot the red histogram. 
 	hR = subplot(3, 4, 1:4); 

@@ -4,28 +4,34 @@ function main = cardDriver(image, show)
 % if the card is red, use rgbNormalization to make intensity uniform
 normalizedImage = rgbNormalization(image, show);
 
+
 % if the card is black, use some other method
 % black method here....
 %normalizedImage = importdata(image,'jpg');
-
+original = imread(image);
+background = imopen(original,strel('disk',5));
+test = (background) + original;
 imshow(normalizedImage);
-binaryimage = segmentimage(normalizedImage, show);
+binaryimage = segmentimage(test, show);
 morphedimage = bwmorph(binaryimage, 'open',1);
-%colorOnly = colorDetect(image, ~morphedimage);
+disp(size(image));
 
-imagefeatures = getproperties(binaryimage);
+
+colorOnly = colorDetect(original, morphedimage);
+
+imagefeatures = getproperties(morphedimage);
 main = imagefeatures;
 
-figure, imshow(binaryimage), title('binary image')
+figure, imshow(morphedimage), title('binary image')
 
 
 
-[label num] = bwlabel(binaryimage);
+[label num] = bwlabel(morphedimage);
 disp(num);
 props = regionprops(label);
 box = [props.BoundingBox];
 box = reshape(box, [4 num]);
-imshow(binaryimage);
+imshow(morphedimage);
 
 hold on;
 for cnt = 1:num
