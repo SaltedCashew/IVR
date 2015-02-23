@@ -1,7 +1,7 @@
 % to be called with .jpg file. ie: segmentimage('train1.jpg', 1)
 % file need not be grayscale
 
-function morphedimage = segmentimage(localImage, show)
+function binary = segmentimage(localImage, show)
     close all; % Close all figures (except those of imtool.)
     imtool close all; % Close all imtool figures.
     workspace; % Make sure the workspace panel is showing.

@@ -1,54 +1,67 @@
-Package Control Messages
-========================
+function color = colorDetect(originalImage, binaryImage)
+    close all; % Close all figures (except those of imtool.)
+    imtool close all; % Close all imtool figures.
+    a = size(originalImage); %if this is in color, it will be a 3D array
+    b = size(binaryImage);   %Should be a 2D binary image array
+    c = originalImage;
 
-Package Control:
----------------
+    if ( a(1, 1:2) ~= b(1, 1:2) )  %only looks at first two elements for larger than 2D array
+        color = 0;
+        return;
+    end
 
-  Version 3.0 Release Notes
-  
-  
-  **** Windows Sublime Text 3 Users ****
-  
-  Due to a bug in Package Control 2.0, Windows ST3 users will need to open the
-  Sublime Text console (ctrl+`) and execute the following Python to properly
-  upgrade. All other users may ignore this part of the message.
-  
-  Make sure NOT to copy the leading two spaces, or an "unexpected indent" error
-  will occur.
-  
-  import urllib.request,os,sys; exec("if sys.version_info < (3,) or os.name != 'nt': raise OSError('This code is for Windows ST3 only!')"); pr='Preferences.sublime-settings'; ip='ignored_packages'; n='Package Control'; s=sublime.load_settings(pr); ig=s.get(ip); ig.append(n); s.set(ip,ig); sublime.save_settings('Preferences.sublime-settings'); pf=n+'.sublime-package'; urllib.request.install_opener(urllib.request.build_opener(urllib.request.ProxyHandler())); by=urllib.request.urlopen('https://packagecontrol.io/'+pf.replace(' ','%20')).read(); open(os.path.join(sublime.installed_packages_path(),pf),'wb').write(by); ig.remove(n); s.set(ip,ig); sublime.save_settings(pr); print('Package Control: 3.0.0 upgrade successful!')
-  
-  ********
-  
-  
-  Package Control 3.0 adds a bunch of polish, improving the Sublime Text
-  experience for users and package developers:
-  
-   - improved upgrades of themes, color schemes and syntaxes
-   - dependency support
-   - SSL for Linux
-   - new secondary Windows HTTP backend
-   - patches for Python in Sublime Text 2 on Windows
-   - commands to easily remove channels and repositories
-   - an events API for packages
-   - improved documentation
-  
-  
-  As of July 2014, I now work for myself. This has allowed me to spend more time
-  working on open source software, including Package Control. If you appreciate
-  the work I've done, please consider a small donation. If even 5% of regular
-  users donated the price of a coffee or beer, that would cover quite a bit of
-  my development time! See https://packagecontrol.io/about for options.
-  
-  
-  Some recent Package Control stats:
-  
-   - every weekday over 1M JSON requests hit the channel server
-   - in December, the channel server will transmit 4TB+ of compressed JSON
-   - users have installed, upgraded or removed 85M+ packages since late 2011
-  
-  
-  Read more about the release at:
-  
-  https://packagecontrol.io/news#2014-12-23-Package_Control_30_Released
-  
+    columns = a(1,1);
+    rows = a(1,2);
+    figure;
+    imshow(originalImage);
+     title('Original Image', 'FontSize', 10);
+    for i=1:columns % pixel columns of image
+        for j=1:rows % pixel rows
+            if (binaryImage(i,j) == 1)
+               c(i,j,:)=[255,255,255];  
+            end
+        end
+    end
+    color = c;
+   figure;
+    imshow(c);
+    title('Binary Image', 'FontSize', 10);
+    % Extract the individual color planes.
+    redPlane = c(:, :, 1);
+    greenPlane = c(:, :, 2);
+    bluePlane = c(:, :, 3);
+    figure;
+    	% Compute and plot the red histogram. 
+	hR = subplot(3, 4, 1:4); 
+	[countsR, grayLevelsR] = imhist(redPlane); 
+	maxGLValueR = find(countsR > 0, 1, 'last'); 
+	maxCountR = max(countsR); 
+	bar(countsR, 'r'); 
+	grid on; 
+	xlabel('Gray Levels'); 
+	ylabel('Pixel Count'); 
+	title('Histogram of Red Band', 'FontSize', 10);
+    
+% Compute and plot the green histogram. 
+	hG = subplot(3, 4, 5:8); 
+	[countsG, grayLevelsG] = imhist(greenPlane); 
+	maxGLValueG = find(countsG > 0, 1, 'last'); 
+	maxCountG = max(countsG); 
+	bar(countsG, 'g', 'BarWidth', 0.95); 
+	grid on; 
+	xlabel('Gray Levels'); 
+	ylabel('Pixel Count'); 
+	title('Histogram of Green Band', 'FontSize', 10);
+    
+% Compute and plot the blue histogram. 
+	hB = subplot(3, 4, 9:12); 
+	[countsB, grayLevelsB] = imhist(bluePlane); 
+	maxGLValueB = find(countsB > 0, 1, 'last'); 
+	maxCountB = max(countsB); 
+	bar(countsB, 'b'); 
+	grid on; 
+	xlabel('Gray Levels'); 
+	ylabel('Pixel Count'); 
+	title('Histogram of Blue Band', 'FontSize', 10);       
+  	 
+end
