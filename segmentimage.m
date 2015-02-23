@@ -14,7 +14,11 @@ function binary = segmentimage(localImage, guessedColor, show)
     
     figure;
     localHist = dohist(gI, 0);
-    sublevel = findthresh(localHist, 8, 0);
+    if (strcmp(guessedColor, 'red')==1)
+     sublevel = findthresh(localHist, 8, 0);
+    else sublevel = findthresh(localHist, 6, 0);
+    end
+    
     
     
     if (strcmp(guessedColor, 'red')==1)
@@ -23,7 +27,7 @@ function binary = segmentimage(localImage, guessedColor, show)
     end
     
     binary = ~im2bw(gI, level); %added ~ to coincide with lab requirement
-    if (strcmp(guessedColor, 'black')==1)
-        binary = bwmorph(binaryimage, 'open',1);
+    if (strcmp(guessedColor, 'red')~=1)
+        binary = bwmorph(binary, 'open',1);
     end
 end
