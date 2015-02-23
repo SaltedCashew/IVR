@@ -9,15 +9,17 @@ normalizedImage = rgbNormalization(image, show);
 % black method here....
 %normalizedImage = importdata(image,'jpg');
 original = imread(image);
+guessedColor = color(original);
+disp(guessedColor);
 background = imopen(original,strel('disk',5));
 test = (background) + original;
 imshow(normalizedImage);
 binaryimage = segmentimage(test, show);
 morphedimage = bwmorph(binaryimage, 'open',1);
-disp(size(image));
 
 
-colorOnly = colorDetect(original, morphedimage);
+
+%colorOnly = colorDetect(original, morphedimage);
 
 imagefeatures = getproperties(morphedimage);
 main = imagefeatures;
@@ -27,7 +29,7 @@ figure, imshow(morphedimage), title('binary image')
 
 
 [label num] = bwlabel(morphedimage);
-disp(num);
+
 props = regionprops(label);
 box = [props.BoundingBox];
 box = reshape(box, [4 num]);

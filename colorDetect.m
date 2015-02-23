@@ -5,8 +5,7 @@ function color = colorDetect(originalImage, binaryImage)
     b = size(binaryImage);   %Should be a 2D binary image array
     c = originalImage;
 
-    disp(a);
-    disp(b);
+
     if ( a(1, 1:2) ~= b(1, 1:2) )  %only looks at first two elements for larger than 2D array
         color = 0;
         return;
@@ -45,7 +44,8 @@ function color = colorDetect(originalImage, binaryImage)
 	hR = subplot(3, 4, 1:4); 
 	[countsR, grayLevelsR] = imhist(redPlane); 
 	maxGLValueR = find(countsR > 0, 1, 'last'); 
-	maxCountR = max(countsR); 
+	maxCountR = max(countsR);
+ 
 	bar(countsR, 'r'); 
 	grid on; 
 	xlabel('Gray Levels'); 
@@ -66,6 +66,7 @@ function color = colorDetect(originalImage, binaryImage)
 % Compute and plot the blue histogram. 
 	hB = subplot(3, 4, 9:12); 
 	[countsB, grayLevelsB] = imhist(bluePlane); 
+   
 	maxGLValueB = find(countsB > 0, 1, 'last'); 
 	maxCountB = max(countsB); 
 	bar(countsB, 'b'); 
@@ -73,5 +74,13 @@ function color = colorDetect(originalImage, binaryImage)
 	xlabel('Gray Levels'); 
 	ylabel('Pixel Count'); 
 	title('Histogram of Blue Band', 'FontSize', 10);       
+    
+    disp(maxCountR);
+    disp(maxCountG);
+    disp(maxCountB);
+    disp(grayLevelsR);
+    disp(grayLevelsG);
+    
+    disp(grayLevelsG);
   	 
 end
