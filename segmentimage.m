@@ -7,8 +7,8 @@ function binary = segmentimage(localImage, show)
     workspace; % Make sure the workspace panel is showing.
     %fontSize = 20;
     imshow(localImage);
-    loaded = importdata(localImage,'jpg');
-    gI = rgb2gray(loaded);
+    %loaded = importdata(localImage,'jpg');
+    gI = rgb2gray(localImage);
 
  
     
@@ -17,11 +17,9 @@ function binary = segmentimage(localImage, show)
     sublevel = findthresh(localHist, 8, 0);
     disp(sublevel);
     
-    level = sublevel/400;
+    level = sublevel/256;
     binary = ~im2bw(gI, level); %added ~ to coincide with lab requirement
     if show>0
         imshow(binary)
     end
-    morphedimage = bwmorph(binary, 'open',1);
-    imshow(morphedimage);
 end
