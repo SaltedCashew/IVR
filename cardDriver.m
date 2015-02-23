@@ -20,13 +20,13 @@ else
     background = imopen(original,strel('disk',5));
     test = (background) + original;
 
-    binaryimage = segmentimage(test, show);
+    binaryimage = segmentimage(test, guessedColor, show);
 end
 
 
-
+main = binaryimage;
 imagefeatures = getproperties(binaryimage);
-main = imagefeatures;
+%main = imagefeatures;
 
 figure, imshow(binaryimage), title('binary image')
 
@@ -37,6 +37,7 @@ figure, imshow(binaryimage), title('binary image')
 props = regionprops(label);
 box = [props.BoundingBox];
 box = reshape(box, [4 num]);
+
 imshow(binaryimage);
 
 hold on;

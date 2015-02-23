@@ -6,13 +6,12 @@ function binary = segmentimage(localImage, guessedColor, show)
     imtool close all; % Close all imtool figures.
     workspace; % Make sure the workspace panel is showing.
     %fontSize = 20;
-    imshow(localImage);
+    if (show==1) 
+        imshow(localImage);
+    end
     %loaded = importdata(localImage,'jpg');
     gI = rgb2gray(localImage);
 
- 
-    
-    figure;
     localHist = dohist(gI, 0);
     if (strcmp(guessedColor, 'red')==1)
      sublevel = findthresh(localHist, 8, 0);
