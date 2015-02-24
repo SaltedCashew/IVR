@@ -70,11 +70,12 @@ hold off;
 
 % based on color of card, use 2 class Bayes classifier to determine suit
 if (strcmp(guessedColor, 'red') == 1)
- %  getredsuit(suitProps); 
+   guessedSuit = getredsuitSVM(suitProps);
+  
 else
-    guessedSuit = getblacksuitSVM(suitProps);
-    disp(guessedSuit);
+   guessedSuit = getblacksuitSVM(suitProps);
 end
 
+disp(guessedSuit);
 
 end
