@@ -31,6 +31,11 @@ ci5 = 1000000*real(tmp);
 ci6 = 1000000*imag(tmp);
 
 %ci=[ci1,ci2,ci3,ci4,ci5,ci6]
-
-    vec = [compactness,ci1,ci2,ci3,ci4];
+    
+    mal = regionprops(Image, 'MajorAxisLength'); 
+    majaxis = cat(1, mal.MajorAxisLength);
+    min = regionprops(Image, 'MinorAxisLength'); 
+    minaxis = cat(1, min.MinorAxisLength);
+  
+    vec = [compactness,ci1,ci2,ci3,ci4, majaxis, minaxis];
    %  vec = [compactness,ci1,ci2];         %only use 3 as only have 4 samples
