@@ -38,6 +38,7 @@ box = reshape(box, [4 numObjects]);
 
 % find upper left symbol--this should be the number of the card
 numSymbol = imcrop(main, props(1).BoundingBox);
+figure('name', 'Card Number');
 imshow(numSymbol);
 
 numProps = getproperties(numSymbol);
@@ -45,12 +46,14 @@ disp(numProps);
 
 % find the second-highest left symbol--this should be the suit of the card
 suitSymbol = imcrop(main, props(2).BoundingBox);
+figure('name', 'Suit Symbol');
 imshow(suitSymbol);
 
 suitProps = getproperties(suitSymbol);
 disp(suitProps);
 
 %imshow(binaryimage);
+figure('name', 'Bounding Boxes');
 imshow(main);
 
 hold on;
@@ -60,5 +63,12 @@ end
 hold off;
 
 % based on color of card, use 2 class Bayes classifier to determine suit
+if (strcmp(guessedColor, 'red') == 1)
+ %  getredsuit(suitProps); 
+else
+    guessedSuit = getblacksuitSVM(suitProps);
+    disp(guessedSuit);
+end
+
 
 end
