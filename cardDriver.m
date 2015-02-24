@@ -13,9 +13,6 @@ if(strcmp(guessedColor, 'red')==1)
     end
     binaryimage = segmentimage(normalizedImage, guessedColor, show);
 
-    % if the card is black, use some other method
-    % black method here....
-    %normalizedImage = importdata(image,'jpg');
 else
     background = imopen(original,strel('disk',5));
     test = (background) + original;
@@ -25,23 +22,43 @@ end
 
 main = removeFloaties(binaryimage);
 
-imagefeatures = getproperties(binaryimage);
-%main = imagefeatures;
+%imagefeatures = getproperties(binaryimage);
+%imagefeatures = getproperties(main);
 
-figure, imshow(binaryimage), title('binary image')
+%figure, imshow(binaryimage), title('binary image')
+figure, imshow(main), title('main image')
 
-[label num] = bwlabel(binaryimage);
+%[label num] = bwlabel(binaryimage);
+[label numObjects] = bwlabel(main);
 
 props = regionprops(label);
 box = [props.BoundingBox];
-box = reshape(box, [4 num]);
+%[ul_corner, width] = props.BoundingBox;
+box = reshape(box, [4 numObjects]);
 
-imshow(binaryimage);
+% find upper left symbol--this should be the number of the card
+numSymbol = imcrop(main, props(1).BoundingBox);
+imshow(numSymbol);
+
+numProps = getproperties(numSymbol);
+disp(numProps);
+
+% find the second-highest left symbol--this should be the suit of the card
+suitSymbol = imcrop(main, props(2).BoundingBox);
+imshow(suitSymbol);
+
+suitProps = getproperties(suitSymbol);
+disp(suitProps);
+
+%imshow(binaryimage);
+imshow(main);
 
 hold on;
-for cnt = 1:num
+for cnt = 1:numObjects
     rectangle('position', box(:,cnt), 'edgecolor', 'g');
 end
 hold off;
+
+% based on color of card, use 2 class Bayes classifier to determine suit
 
 end

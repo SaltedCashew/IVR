@@ -1,7 +1,7 @@
 function clippedImage = removeFloaties(inputImage)
     
     % remove any objects that are not at least 200 contiguous bits large
-    reducedbinaryimage = bwareaopen(inputImage, 200);
+    reducedbinaryimage = bwareaopen(inputImage, 150);
     
     % get the centroid of every remaining object
     stats  = regionprops(reducedbinaryimage, 'centroid');
@@ -9,8 +9,8 @@ function clippedImage = removeFloaties(inputImage)
     imshow(reducedbinaryimage);
     
     % test theory about N-4 = card #--remove eventually
-    [r,c] = size(centroids);
-    disp(r-4);
+    %[r,c] = size(centroids);
+    %disp(r-4);
     
     % plot individual centroids--remove eventually
     hold on
