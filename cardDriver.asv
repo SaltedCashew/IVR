@@ -13,6 +13,7 @@ if(strcmp(guessedColor, 'red')==1)
     end
     binaryimage = segmentimage(normalizedImage, guessedColor, show);
 
+% if the card is black, remove small artifacts and intensify background
 else
     background = imopen(original,strel('disk',5));
     test = (background) + original;
@@ -23,7 +24,7 @@ end
 main = removeFloaties(binaryimage);
 
 %imagefeatures = getproperties(binaryimage);
-imagefeatures = getproperties(main);
+%imagefeatures = getproperties(main);
 
 %figure, imshow(binaryimage), title('binary image')
 figure, imshow(main), title('main image')
@@ -34,44 +35,41 @@ figure, imshow(main), title('main image')
 props = regionprops(label);
 box = [props.BoundingBox];
 %[ul_corner, width] = props.BoundingBox;
-box = reshape(box, [4 num]);
+box = reshape(box, [4 numObjects]);
 
-[ul_corner, width] = props(1).BoundingBox;
-xMin = ul_corner(1);
-yMin = ul_corner(2);
 % find upper left symbol--this should be the number of the card
-for i = 2:numObjects
-   
-    [ul_corner, width] = props(i).BoundingBox;
-    
-    if ul_corner(1) < xMin
-        
-        if ul_corner(2) , yMin
-            
-            xMin = ul_corner(1);
-            yMin = ul_corner(2);
-    
-        end
-    end
-end
+numSymbol = imcrop(main, props(1).BoundingBox);
+figure('name', 'Card Number');
+imshow(numSymbol);
+
+numProps = getproperties(numSymbol);
+disp(numProps);
 
 % find the second-highest left symbol--this should be the suit of the card
+suitSymbol = imcrop(main, props(2).BoundingBox);
+figure('name', 'Suit Symbol');
+imshow(suitSymbol);
 
-subImage = imcrop(main, props(1).BoundingBox);
-imshow(subImage);
-% rect = [ul_corner(1), ul_corner(2), width(1), width(2)];
-% symbol = imcrop(main, rect);
-% imshow(symbol);
+suitProps = getproperties(suitSymbol);
+disp(suitProps);
 
 %imshow(binaryimage);
+figure('name', 'Bounding Boxes');
 imshow(main);
 
 hold on;
-for cnt = 1:num
+for cnt = 1:numObjects
     rectangle('position', box(:,cnt), 'edgecolor', 'g');
 end
 hold off;
 
 % based on color of card, use 2 class Bayes classifier to determine suit
+if (strcmp(guessedColor, 'red') == 1)
+ %  getredsuit(suitProps); 
+else
+    guessedSuit = getblacksuitSVM(suitProps);
+    disp(guessedSuit);
+end
+
 
 end

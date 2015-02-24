@@ -2,6 +2,8 @@
 function main = cardDriver(image, show)
 
 original = imread(image);
+
+% extract the color of the card
 guessedColor = color(original);
 disp(guessedColor);
 
@@ -11,12 +13,16 @@ if(strcmp(guessedColor, 'red')==1)
     if (show==1)
         imshow(normalizedImage);
     end
+    
+    % transform normalized image into a binary image
     binaryimage = segmentimage(normalizedImage, guessedColor, show);
 
+% if the card is black, remove small artifacts and intensify background
 else
     background = imopen(original,strel('disk',5));
     test = (background) + original;
 
+    % transform intensified image into a binary image
     binaryimage = segmentimage(test, guessedColor, show);
 end
 
