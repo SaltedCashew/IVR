@@ -23,12 +23,16 @@ else
     binaryimage = segmentimage(test, guessedColor, show);
 end
 
-main = removeFloaties(binaryimage);
+reducedbinaryimage = bwareaopen(binaryimage, );
 
+
+main = binaryimage;
 imagefeatures = getproperties(binaryimage);
 %main = imagefeatures;
 
 figure, imshow(binaryimage), title('binary image')
+
+
 
 [label num] = bwlabel(binaryimage);
 
