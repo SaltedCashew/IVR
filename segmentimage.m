@@ -1,33 +1,27 @@
-% to be called with .jpg file. ie: segmentimage('train1.jpg', 1)
-% file need not be grayscale
 
 function binary = segmentimage(localImage, guessedColor, show)
     close all; % Close all figures (except those of imtool.)
     imtool close all; % Close all imtool figures.
     workspace; % Make sure the workspace panel is showing.
-    %fontSize = 20;
-    if (show==1) 
-        imshow(localImage);
-    end
-    %loaded = importdata(localImage,'jpg');
-    gI = rgb2gray(localImage);
 
-    localHist = dohist(gI, 0);
+    % extract a histogram from the grayscale image
+    grayImage = rgb2gray(localImage);
+    localHist = dohist(grayImage, 0);
+    
+    % compute an appropriate threshold based on the color of the card
     if (strcmp(guessedColor, 'red')==1)
         sublevel = findthresh(localHist, 8, 0);
     else
         sublevel = findthresh(localHist, 2, 0);
     end
     
+    % scale the threshold to a number between 0 and 1
+    level = sublevel/256;
     
+    % finally segment grayscale to create a binary image
+    binary = ~im2bw(grayImage, level); %added ~ to coincide with lab requirement
     
-    if (strcmp(guessedColor, 'red')==1)
-        level = sublevel/256;
-    else
-        level = sublevel/256;
-    end
-    
-    binary = ~im2bw(gI, level); %added ~ to coincide with lab requirement
+    % if the card is black, apply bwmorph to remove extraneous artifacts
     if (strcmp(guessedColor, 'red')~=1)
         binary = bwmorph(binary, 'open',1);
     end
