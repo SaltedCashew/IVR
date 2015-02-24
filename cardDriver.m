@@ -27,7 +27,7 @@ else
     binaryimage = segmentimage(test, guessedColor, show);
 end
 
-main = removeFloaties(binaryimage);
+main = bwareaopen(binaryImage, 150);
 
 %imagefeatures = getproperties(binaryimage);
 %imagefeatures = getproperties(main);
