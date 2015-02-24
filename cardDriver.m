@@ -79,11 +79,11 @@ end
 
 disp(guessedSuit);
 disp(numObjects);
-disp('Sending theses props to region detector:');
-disp(numProps);
 countPips = 0;
 for (i = 1:numObjects)
-    bool = strcmp(findPipRegions(numProps), 'true');
+    region = imcrop(main, props(i).BoundingBox);
+    regionProps = getproperties(region);
+    bool = strcmp(findPipRegions(regionProps), 'true');
     if(bool ==1)
         countPips = countPips + 1;
     end
