@@ -1,6 +1,6 @@
 
-function mainimg = cardDriver(image, show)
-jon = 1; %used for debuging
+function main = cardDriver(image, show)
+jon = 0; %used for debuging
 original = imread(image);
 %imshow(original);
 
@@ -35,14 +35,8 @@ box = reshape(box, [4 numObjects]);
 % find upper left symbol--this should be the number of the card
 numSymbol = imcrop(mainimg, props(1).BoundingBox);
 
-% get the properties of the number
-numProps = getproperties(numSymbol);
-
 % find the second-highest left symbol--this should be the suit of the card
 suitSymbol = imcrop(mainimg, props(3).BoundingBox);
-
-% get the properties of the suit
-suitProps = getproperties(suitSymbol);
 
 figure('name', 'Bounding Boxes');
 imshow(original);
