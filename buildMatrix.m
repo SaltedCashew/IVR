@@ -1,4 +1,4 @@
-function main = buildMatrix(image, show)
+function main = buildMatrix(image, show) %used with testing2 to build matrices for svm
 
 original = imread(image);
 imshow(original);

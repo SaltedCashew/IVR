@@ -1,4 +1,5 @@
-function run = testall()
+function run = testall() %does what it says. tests all 64 cards and prints results
+
     disp('Testing the Training Set');
     trainingset = ['2 of spade  ';'2 of heart  ';'2 of club   ';'2 of diamond';...
         '3 of spade  ';'3 of heart  ';'3 of club   ';'3 of diamond';...

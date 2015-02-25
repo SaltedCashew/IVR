@@ -1,4 +1,4 @@
-function new = testing2(numSymbol)
+function new = testing2(numSymbol) %used with buildMatrix for building matrices for svms
 
 
 % Extract HOG features and HOG visualization
