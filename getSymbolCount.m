@@ -1,4 +1,4 @@
-function count = removeFloaties(inputImage)
+function count = getSymbolCount(inputImage)
     
     % get the centroid of every remaining object
     stats  = regionprops(inputImage, 'centroid');
@@ -9,8 +9,8 @@ function count = removeFloaties(inputImage)
     x = averageCentroid(1);
     y = averageCentroid(2);
     
-    % if object is too far from average centroid, then remove it from the
-    % regionprops list
+    % calculate the average distance from each object's centroid to the
+    % average centroid
     totalDist = 0;
     for i = 1:size(centroids, 1)
         X = [x, y; centroids(i,:)];
@@ -20,15 +20,15 @@ function count = removeFloaties(inputImage)
     end
     averageDist = totalDist / size(centroids, 1);
     
+    % if the distance from the object's centroid to the average
+    % centroid is two times greater than the average distance, then do
+    % not count the object
     count = 0;
     for i = 1:size(centroids, 1)
         
         X = [x, y; centroids(i,:)];
         d = pdist(X,'euclidean');
         
-        % if the distance from the object's centroid to the average
-        % centroid is two times greater than the average distance, then do
-        % not count the object
         if d < (2.5 * averageDist)
            
             count = count + 1;

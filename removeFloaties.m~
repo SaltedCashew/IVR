@@ -29,14 +29,17 @@ function count = removeFloaties(inputImage)
         % if the distance from the object's centroid to the average
         % centroid is two times greater than the average distance, then do
         % not count the object
-        if d < (2.5 * averageDist)
+        if d < (2 * averageDist)
            
             count = count + 1;
             
-        end 
+        end
+        
+        
     end;
     
     % TODO: remove objects outside of a boundary (i.e. unwanted objects)
-
+    
+    count = 0;
 end
 

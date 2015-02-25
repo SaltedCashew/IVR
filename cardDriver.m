@@ -26,6 +26,8 @@ binaryimage = segmentimage(modifiedimage, guessedColor, show);
 % remove any objects that are not at least 150 contiguous bits large
 main = bwareaopen(binaryimage, 150);
 
+count = getSymbolCount(main);
+
 % create bounding boxes
 [label, numObjects] = bwlabel(main);
 props = regionprops(label);
@@ -49,7 +51,7 @@ imshow(main);
 
 % numObjects is equal to the number of symbols in the image; card # = #
 % symbols - 4
-cardNumber = numObjects - 4;
+cardNumber = count - 4;
 
 hold on;
 for cnt = 1:numObjects
