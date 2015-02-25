@@ -44,7 +44,7 @@ suitSymbol = imcrop(main, props(3).BoundingBox);
 suitProps = getproperties(suitSymbol);
 
 figure('name', 'Bounding Boxes');
-imshow(main);
+imshow(original);
 
 % numObjects is equal to the number of symbols in the image; card # = #
 % symbols - 4
