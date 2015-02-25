@@ -36,13 +36,9 @@ function count = getSymbolCount(inputImage)
         d = pdist(X,'euclidean');
         
         if d < (2.5 * averageDist)
-           
             count = count + 1;
-            
         end 
-    end;
-    
-    % TODO: remove objects outside of a boundary (i.e. unwanted objects)
-
+        
+    end
 end
 

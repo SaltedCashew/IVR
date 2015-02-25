@@ -1,6 +1,6 @@
 
 function mainimg = cardDriver(image, show)
-jon = 1; %used for debuging
+jon = 0; %used for debuging
 original = imread(image);
 %imshow(original);
 
@@ -23,29 +23,17 @@ binaryimage = segmentimage(modifiedimage, guessedColor);
 % remove any objects that are not at least 150 contiguous bits large
 mainimg = bwareaopen(binaryimage, 150);
 
-% determine the number of symbols on the card
-count = getSymbolCount(mainimg);
-
 % create bounding boxes
 [label, numObjects] = bwlabel(mainimg);
 props = regionprops(label);
 box = [props.BoundingBox];
 box = reshape(box, [4 numObjects]);
 
-% find upper left symbol--this should be the number of the card
-numSymbol = imcrop(mainimg, props(1).BoundingBox);
-
-% get the properties of the number
-numProps = getproperties(numSymbol);
-
-% find the second-highest left symbol--this should be the suit of the card
-suitSymbol = imcrop(mainimg, props(3).BoundingBox);
-
-% get the properties of the suit
-suitProps = getproperties(suitSymbol);
-
 figure('name', 'Bounding Boxes');
 imshow(original);
+
+% determine the number of symbols on the card
+count = getSymbolCount(mainimg);
 
 % numObjects is equal to the number of symbols in the image; card # = #
 % symbols - 4
@@ -57,6 +45,8 @@ for cnt = 1:numObjects
 end
 hold off;
 
+% choose the 3rd objects in props (it is a suit symbol) and crop it from
+% the binary image
 pipSymbol = imcrop(mainimg, props(3).BoundingBox);
 if(jon == 0)
     guessedSuit = getSuit(guessedColor, pipSymbol);
@@ -64,6 +54,8 @@ else
     guessedSuit = 'heart';
 end
 
+commonSuit = classifyCard(mainimg, guessedColor, jon);
+disp(commonSuit);
 
 figure('name', 'Binary Image');
 imshow(mainimg);
