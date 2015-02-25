@@ -1,5 +1,3 @@
-
-
 function main = cardDriver(image, show)
 
 original = imread(image);

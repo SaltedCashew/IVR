@@ -4,17 +4,13 @@ function binary = segmentimage(localImage, guessedColor, show)
     imtool close all; % Close all imtool figures.
     workspace; % Make sure the workspace panel is showing.
 
-    %imshow(localImage);
+    
     % extract a histogram from the grayscale image
     grayImage = rgb2gray(localImage);
-    %imshow(grayImage);
-    test = adapthisteq(grayImage);
-   % imshow(test);
-    level = graythresh(test);
-    bw = ~im2bw(test,level);
-    bw = bwareaopen(bw, 50);
-    %imshow(bw)
-
+    enhanced = adapthisteq(grayImage); %adapthisteq enhances the contrast
+    level = graythresh(enhanced);
+    bw = ~im2bw(enhanced,level);
+    bw = bwareaopen(bw, 50); %remove areas with smaller than 50 pixels
     localHist = dohist(grayImage, 0);
     
     % compute an appropriate threshold based on the color of the card
