@@ -1,7 +1,8 @@
-% to be called with .jpg file. ie: segmentimage('train1.jpg', 1)
-% file need not be grayscale
+% This function is used to reduce the effect of varying intensity in an
+% image. It achieves this through normalizing the RGB spectrums of
+% localImage.
 
-function normalized_image = rgbNormalization(localImage, show)
+function normalized_image = rgbNormalization(localImage)
     % load the unnormalized rgb image
     rgb_image = double(importdata(localImage,'jpg'));
     
@@ -37,7 +38,7 @@ function normalized_image = rgbNormalization(localImage, show)
             
             end
             
-            % insert normalized rgb into appropriate slice of image
+            % insert normalized rgb into appropriate spectrum of image
             red_image(i,j) = norm_red * 256;
             green_image(i,j) = norm_green * 256;
             blue_image(i,j) = norm_blue * 256;
@@ -49,9 +50,6 @@ function normalized_image = rgbNormalization(localImage, show)
     rgb_image(:,:,1) = red_image;
     rgb_image(:,:,2) = green_image;
     rgb_image(:,:,3) = blue_image;
-    
-    %rgb_image = rgb_image .* rgb_image;
-    %rgb_image = rgb_image .* rgb_image;
     
     % cast to uint8 for compatiblity with the rest of the lab
     normalized_image = uint8(rgb_image);

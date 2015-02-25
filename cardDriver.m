@@ -10,14 +10,12 @@ guessedColor = color(original);
 
 % if the card is red, use rgbNormalization to make intensity uniform
 if(strcmp(guessedColor, 'red')==1)
-    modifiedimage = rgbNormalization(image, show);
+    modifiedimage = rgbNormalization(image);
 
 % if the card is black, remove small artifacts and intensify background
 else
     background = imopen(original,strel('disk',5));
     modifiedimage = background + original;
-%     modifiedimage = original;
-    
 end
 
 % transform normalized image into a binary image
@@ -26,6 +24,7 @@ binaryimage = segmentimage(modifiedimage, guessedColor, show);
 % remove any objects that are not at least 150 contiguous bits large
 main = bwareaopen(binaryimage, 150);
 
+% determine the number of symbols on the card
 count = getSymbolCount(main);
 
 % create bounding boxes
@@ -84,6 +83,6 @@ end
 % end
 % disp(countPips);
 
-disp(strcat('This card is a', {' '}, num2str(cardNumber), {' '},'of', {' '}, guessedSuit));
+disp(strcat(num2str(cardNumber), {' '},'of', {' '}, guessedSuit));
 
 end
