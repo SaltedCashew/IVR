@@ -1,5 +1,6 @@
+
 function mainimg = cardDriver(image, show)
-jon = 0; %used for debuging
+jon = 1; %used for debuging
 original = imread(image);
 %imshow(original);
 
@@ -17,7 +18,7 @@ else
 end
 
 % transform normalized image into a binary image
-binaryimage = segmentimage(modifiedimage, guessedColor, show);
+binaryimage = segmentimage(modifiedimage, guessedColor);
 
 % remove any objects that are not at least 150 contiguous bits large
 mainimg = bwareaopen(binaryimage, 150);
@@ -62,6 +63,7 @@ if(jon == 0)
 else
     guessedSuit = 'heart';
 end
+
 
 figure('name', 'Binary Image');
 imshow(mainimg);

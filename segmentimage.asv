@@ -1,9 +1,7 @@
 % This function is used to generate a binary image after applying a series
-% of image enhancing processes, including the Matlab adapthisteq function
-% and thresholding. Additionally, the function is sensitive to
-% the color of the card.
+% of image enhancing processes. 
 
-function binary = segmentimage(localImage, guessedColor)
+function binary = segmentimage(localImage, guessedColor, show)
     close all; % Close all figures (except those of imtool.)
     imtool close all; % Close all imtool figures.
     workspace; % Make sure the workspace panel is showing.
