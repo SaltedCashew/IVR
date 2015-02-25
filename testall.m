@@ -23,17 +23,17 @@ function run = testall() %does what it says. tests all 64 cards and prints resul
     
     testset = cellstr(testset);
     
-    trainingCount = 0;
+    trainingcount = 0;
     testCount = 0;
     for i=1:32
         img = strcat('images/train',num2str(i),'.jpg');
-        %disp(strcat(img,' :',{' '}));
+        
         result = cardDriver(img, 0);
         if(strcmp(result, trainingset(i)))
             disp('CORRECT!');
         else
             disp(strcat('WRONG!', {' '},'Should be:',{' '}, trainingset(i)));
-            trainingcount = trainingCount + 1;
+            trainingcount = trainingcount + 1;
         end
         close all; % Close all figures (except those of imtool.)
         imtool close all; % Close all imtool figures.
@@ -53,6 +53,6 @@ function run = testall() %does what it says. tests all 64 cards and prints resul
         close all; % Close all figures (except those of imtool.)
         imtool close all; % Close all imtool figures.
     end
-disp(strcat('Number of training cards incorrect:',{' '}, num2str(trainingCount)));
+disp(strcat('Number of training cards incorrect:',{' '}, num2str(trainingcount)));
 disp(strcat('Number of test cards incorrect:',{' '}, num2str(testCount)));
 end

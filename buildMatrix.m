@@ -19,7 +19,7 @@ else
 end
 
 % transform normalized image into a binary image
-binaryimage = segmentimage(modifiedimage, guessedColor, show);
+binaryimage = segmentimage(modifiedimage, guessedColor);
 
 % remove any objects that are not at least 150 contiguous bits large
 main = bwareaopen(binaryimage, 150);

@@ -6,18 +6,18 @@
 
 function guessedColor = color(originalImage)
 
-    redThresh = 0.20;
+    redThreshold = 0.20;
     diffRed = imsubtract(originalImage(:,:,1), rgb2gray(originalImage)); % Get red component of the image
     diffRed = medfilt2(diffRed, [3 3]); % Filter out the noise by using median filter
-    binRed = im2bw(diffRed, redThresh); % Convert the image into binary image with the red objects as white
+    binaryRed = im2bw(diffRed, redThreshold); % Convert the image into binary image with the red objects as white
 
     count = 0;
-    a = size(binRed); %if this is in color, it will be a 3D array
+    a = size(binaryRed); %if this is in color, it will be a 3D array
     columns = a(1,1);
     rows = a(1,2);
     for i=1:columns
         for j=1:rows
-            if (binRed(i,j) ~= 0)
+            if (binaryRed(i,j) ~= 0)
                count = count + 1;
             end
         end
