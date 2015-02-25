@@ -25,8 +25,8 @@ function classification = classifyCard(inputImage, guessedColor, jon)
     averageDist = totalDist / size(centroids, 1);
     
     % if the distance from the object's centroid to the average
-    % centroid is 2.5 times greater than the average distance, then do
-    % not count the object
+    % centroid is 2.5 times greater than the average distance and the
+    % compactness is less than 3, then classify the image using 
     
     suits = zeros(1,4);
     for i = 1:size(centroids, 1)

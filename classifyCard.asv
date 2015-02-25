@@ -6,6 +6,7 @@ function classification = classifyCard(inputImage, guessedColor, jon)
     stats  = regionprops(inputImage, 'centroid');
     centroids = cat(1, stats.Centroid);
     
+    [label, numObjects] = bwlabel(inputImage);
     props = regionprops(label);    
     
     % calculate the average centroid (i.e. objects' center of mass)
@@ -24,19 +25,21 @@ function classification = classifyCard(inputImage, guessedColor, jon)
     averageDist = totalDist / size(centroids, 1);
     
     % if the distance from the object's centroid to the average
-    % centroid is 2.5 times greater than the average distance, then do
-    % not count the object
+    % centroid is 2.5 times greater than the average distance and the
+    % compactness is less than 3, then classify the image using 
     
-    suits = {0,0,0,0};
+    suits = zeros(1,4);
     for i = 1:size(centroids, 1)
         
         X = [x, y; centroids(i,:)];
         d = pdist(X,'euclidean');
         
-        symbol = imcrop(mainimg, props(i).BoundingBox);
-        compactness = getproperties(symbol);
+        symbol = imcrop(inputImage, props(i).BoundingBox);
+        imshow(symbol);
+        features = getproperties(symbol);
+        compactness = features(1);
         
-        if (d < (2.5 * averageDist)) && (compactness > 2) %???
+        if (d < (2.5 * averageDist)) && (compactness < 3)
             if(jon == 0)
                 guessedSuit = getSuit(guessedColor, pipSymbol);
             else
@@ -46,31 +49,31 @@ function classification = classifyCard(inputImage, guessedColor, jon)
             % increment the appropriate suit
             if strcmp(guessedSuit, 'heart')==1
                suits(1) = suits(1) + 1;
-            end
-            if strcmp(guessedSuit, 'diamond')==1
+            
+            elseif strcmp(guessedSuit, 'diamond')==1
                 suits(2) = suits(2) + 1;
-            end
-            if strcmp(guessedSuit, 'club')==1
+            
+            elseif strcmp(guessedSuit, 'club')==1
                 suits(3) = suits(3) + 1;
-            end
-            if strcmp(guessedSuit, 'spade')==1
+            
+            elseif strcmp(guessedSuit, 'spade')==1
                 suits(4) = suits(4) + 1;
             end
         end 
     end
     
     [val, index] = max(suits);
-    % find the most commonly classified suit
+    % return the most commonly classified suit
     if index == 1
         classification = 'HEARTS';
-    end
-    if index == 2
+    
+    elseif index == 2
         classification = 'DIAMONDS';
-    end
-    if index == 3
+    
+    elseif index == 3
         classification = 'CLUBS';
-    end
-    if index == 4
+    
+    elseif index == 4
         classification = 'SPADES';
     end
 
