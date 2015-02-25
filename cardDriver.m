@@ -1,4 +1,4 @@
-function main = cardDriver(image, show)
+function mainimg = cardDriver(image, show)
 jon = 0; %used for debuging
 original = imread(image);
 %imshow(original);
@@ -20,25 +20,25 @@ end
 binaryimage = segmentimage(modifiedimage, guessedColor, show);
 
 % remove any objects that are not at least 150 contiguous bits large
-main = bwareaopen(binaryimage, 150);
+mainimg = bwareaopen(binaryimage, 150);
 
 % determine the number of symbols on the card
-count = getSymbolCount(main);
+count = getSymbolCount(mainimg);
 
 % create bounding boxes
-[label, numObjects] = bwlabel(main);
+[label, numObjects] = bwlabel(mainimg);
 props = regionprops(label);
 box = [props.BoundingBox];
 box = reshape(box, [4 numObjects]);
 
 % find upper left symbol--this should be the number of the card
-numSymbol = imcrop(main, props(1).BoundingBox);
+numSymbol = imcrop(mainimg, props(1).BoundingBox);
 
 % get the properties of the number
 numProps = getproperties(numSymbol);
 
 % find the second-highest left symbol--this should be the suit of the card
-suitSymbol = imcrop(main, props(3).BoundingBox);
+suitSymbol = imcrop(mainimg, props(3).BoundingBox);
 
 % get the properties of the suit
 suitProps = getproperties(suitSymbol);
@@ -56,14 +56,15 @@ for cnt = 1:numObjects
 end
 hold off;
 
-pipSymbol = imcrop(main, props(3).BoundingBox);
+pipSymbol = imcrop(mainimg, props(3).BoundingBox);
 if(jon == 0)
     guessedSuit = getSuit(guessedColor, pipSymbol);
 else
     guessedSuit = 'heart';
 end
 
+figure('name', 'Binary Image');
+imshow(mainimg);
 main = strcat(num2str(cardNumber), {' '},'of', {' '}, guessedSuit);
-disp(main);
-
+disp(strcat( main, 's'));
 end
