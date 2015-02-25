@@ -1,5 +1,5 @@
 function main = cardDriver(image, show)
-
+jon = 0; %used for debuging
 original = imread(image);
 %imshow(original);
 
@@ -50,36 +50,18 @@ imshow(main);
 % symbols - 4
 cardNumber = count - 4;
 
-hold on;
+hold on; %drawing bounding boxes
 for cnt = 1:numObjects
     rectangle('position', box(:,cnt), 'edgecolor', 'g');
 end
 hold off;
 
-% based on color of card, use 2 class Bayes classifier to determine suit
-if (strcmp(guessedColor, 'red') == 1)
-    pipSymbol = imcrop(main, props(3).BoundingBox);
-    [hog_4x4, vis4x4] = extractHOGFeatures(pipSymbol,'CellSize',[4 4]);
-    hog_4x4 = hog_4x4(1,1:400);
-   guessedSuit = getredsuitSVM(hog_4x4);
-  
+pipSymbol = imcrop(main, props(3).BoundingBox);
+if(jon == 0)
+    guessedSuit = getSuit(guessedColor, pipSymbol);
 else
-    pipSymbol = imcrop(main, props(3).BoundingBox);
-    [hog_4x4, vis4x4] = extractHOGFeatures(pipSymbol,'CellSize',[4 4]);
-    hog_4x4 = hog_4x4(1,1:500);
-   guessedSuit = getblacksuitSVM(hog_4x4);
+    guessedSuit = 'heart';
 end
-
-% countPips = 0;
-% for i = 1:numObjects
-%     region = imcrop(main, props(i).BoundingBox);
-%     regionProps = getproperties(region);
-%     bool = strcmp(findPipRegions(regionProps), 'true');
-%     if(bool ==1)
-%         countPips = countPips + 1;
-%     end
-% end
-% disp(countPips);
 
 disp(strcat(num2str(cardNumber), {' '},'of', {' '}, guessedSuit));
 
