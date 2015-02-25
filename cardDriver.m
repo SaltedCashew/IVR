@@ -3,10 +3,10 @@
 function main = cardDriver(image, show)
 
 original = imread(image);
+imshow(original);
 
 % extract the color of the card
 guessedColor = color(original);
-disp(guessedColor);
 
 % if the card is red, use rgbNormalization to make intensity uniform
 if(strcmp(guessedColor, 'red')==1)
@@ -16,6 +16,7 @@ if(strcmp(guessedColor, 'red')==1)
 else
     background = imopen(original,strel('disk',5));
     modifiedimage = background + original;
+%     modifiedimage = original;
     
 end
 
@@ -32,10 +33,10 @@ box = [props.BoundingBox];
 box = reshape(box, [4 numObjects]);
 
 % find upper left symbol--this should be the number of the card
-% numSymbol = imcrop(main, props(1).BoundingBox);
+numSymbol = imcrop(main, props(1).BoundingBox);
 
 % get the properties of the number
-% numProps = getproperties(numSymbol);
+numProps = getproperties(numSymbol);
 
 % find the second-highest left symbol--this should be the suit of the card
 suitSymbol = imcrop(main, props(2).BoundingBox);

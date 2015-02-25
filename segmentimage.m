@@ -8,7 +8,7 @@ function binary = segmentimage(localImage, guessedColor, show)
     % extract a histogram from the grayscale image
     grayImage = rgb2gray(localImage);
     imshow(grayImage);
-    test = imadjust(grayImage);
+    test = adapthisteq(grayImage);
     imshow(test);
     level = graythresh(test);
     bw = ~im2bw(test,level);
