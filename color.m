@@ -1,3 +1,9 @@
+% This function is used to determine the color of the playing card. It
+% achieves this by isolating the red spectrum from the image, converting it
+% to a binary image, and finally counting how many of the remaining pixels
+% are considered objects (ie they are primarily red pixels). If this count
+% is high enough, then the card can be interpreted as red.
+
 function guessedColor = color(originalImage)
 
     redThresh = 0.20;
@@ -9,15 +15,16 @@ function guessedColor = color(originalImage)
     a = size(binRed); %if this is in color, it will be a 3D array
     columns = a(1,1);
     rows = a(1,2);
-    for i=1:columns % pixel columns of image
-        for j=1:rows % pixel rows
+    for i=1:columns
+        for j=1:rows
             if (binRed(i,j) ~= 0)
                count = count + 1;
             end
         end
     end
     
-
+    % determine if the card is red or black based on how many pixels in the
+    % image are primarily red
     if count < 10
         guessedColor = 'black';
     else
