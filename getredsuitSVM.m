@@ -1,10 +1,7 @@
 function prediction = getredsuitSVM(props)
 
-%black_suit_data contains the features matrix (suitprops_red) and the
-%target vector (suittargets_black). suittargets_red is a cell array of
-%strings 'heart' and 'diamond'
-load red_suit_data
-SVMModel = fitcsvm(suitprops_red,suittargets_red,'KernelFunction','rbf','Standardize',true,'ClassNames',{'heart','diamond'});
+load Red_Pip_Hog_Features
+SVMModel = fitcecoc(features,labels);
 
 [label,score] = predict(SVMModel,props);
 

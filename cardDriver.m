@@ -41,7 +41,7 @@ numSymbol = imcrop(main, props(1).BoundingBox);
 numProps = getproperties(numSymbol);
 
 % find the second-highest left symbol--this should be the suit of the card
-suitSymbol = imcrop(main, props(2).BoundingBox);
+suitSymbol = imcrop(main, props(3).BoundingBox);
 
 % get the properties of the suit
 suitProps = getproperties(suitSymbol);
@@ -61,21 +61,27 @@ hold off;
 
 % based on color of card, use 2 class Bayes classifier to determine suit
 if (strcmp(guessedColor, 'red') == 1)
-   guessedSuit = getredsuitSVM(suitProps);
+    pipSymbol = imcrop(main, props(3).BoundingBox);
+    [hog_4x4, vis4x4] = extractHOGFeatures(pipSymbol,'CellSize',[4 4]);
+    hog_4x4 = hog_4x4(1,1:400);
+   guessedSuit = getredsuitSVM(hog_4x4);
   
 else
-   guessedSuit = getblacksuitSVM(suitProps);
+    pipSymbol = imcrop(main, props(3).BoundingBox);
+    [hog_4x4, vis4x4] = extractHOGFeatures(pipSymbol,'CellSize',[4 4]);
+    hog_4x4 = hog_4x4(1,1:500);
+   guessedSuit = getblacksuitSVM(hog_4x4);
 end
 
-countPips = 0;
-for i = 1:numObjects
-    region = imcrop(main, props(i).BoundingBox);
-    regionProps = getproperties(region);
-    bool = strcmp(findPipRegions(regionProps), 'true');
-    if(bool ==1)
-        countPips = countPips + 1;
-    end
-end
+% countPips = 0;
+% for i = 1:numObjects
+%     region = imcrop(main, props(i).BoundingBox);
+%     regionProps = getproperties(region);
+%     bool = strcmp(findPipRegions(regionProps), 'true');
+%     if(bool ==1)
+%         countPips = countPips + 1;
+%     end
+% end
 % disp(countPips);
 
 disp(strcat('This card is a', {' '}, num2str(cardNumber), {' '},'of', {' '}, guessedSuit));
