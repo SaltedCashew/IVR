@@ -4,16 +4,16 @@ function binary = segmentimage(localImage, guessedColor, show)
     imtool close all; % Close all imtool figures.
     workspace; % Make sure the workspace panel is showing.
 
-    imshow(localImage);
+    %imshow(localImage);
     % extract a histogram from the grayscale image
     grayImage = rgb2gray(localImage);
-    imshow(grayImage);
+    %imshow(grayImage);
     test = adapthisteq(grayImage);
-    imshow(test);
+   % imshow(test);
     level = graythresh(test);
     bw = ~im2bw(test,level);
     bw = bwareaopen(bw, 50);
-    imshow(bw)
+    %imshow(bw)
 
     localHist = dohist(grayImage, 0);
     

@@ -3,7 +3,7 @@
 function main = cardDriver(image, show)
 
 original = imread(image);
-imshow(original);
+%imshow(original);
 
 % extract the color of the card
 guessedColor = color(original);
