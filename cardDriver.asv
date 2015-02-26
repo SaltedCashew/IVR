@@ -1,6 +1,6 @@
 
-function main = cardDriver(image, show)
-jon = 0; %used for debuging
+function mainimg = cardDriver(image, show)
+jon = 1; %used for debuging
 original = imread(image);
 
 % extract the color of the card
@@ -14,6 +14,7 @@ if(strcmp(guessedColor, 'red')==1)
 else
     background = imopen(original,strel('disk',5));
     modifiedimage = background + original;
+    imshow(m
 end
 
 % transform normalized image into a binary image
@@ -21,7 +22,6 @@ binaryimage = segmentimage(modifiedimage, guessedColor);
 
 % remove any objects that are not at least 150 contiguous bits large
 mainimg = bwareaopen(binaryimage, 150);
-imshow(mainimg);
 
 % create bounding boxes
 [label, numObjects] = bwlabel(mainimg);
@@ -34,6 +34,7 @@ imshow(original);
 
 % determine the number of symbols on the card
 count = getSymbolCount(mainimg);
+
 
 % numObjects is equal to the number of symbols in the image; card # = #
 % symbols - 4
