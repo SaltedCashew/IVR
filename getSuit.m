@@ -1,16 +1,14 @@
 function guessedSuit = getSuit(guessedColor, pipSymbol)
-% based on color of card, use 2 class Bayes classifier to determine suit
-if (strcmp(guessedColor, 'red') == 1)
-    
-    [hog_4x4, vis4x4] = extractHOGFeatures(pipSymbol,'CellSize',[4 4]);
-    hog_4x4 = hog_4x4(1,1:200);
-    guessedSuit = getredsuitSVM(hog_4x4);
-    
-else
-    [hog_4x4, vis4x4] = extractHOGFeatures(pipSymbol,'CellSize',[4 4]);
-    hog_4x4 = hog_4x4(1,1:200);
-    guessedSuit = getblacksuitSVM(hog_4x4);
-end
+% based on color of card, use hog features and multiclass svm to determine
+% suit
+
+    [hog_4x4, vis4x4] = extractHOGFeatures(pipSymbol,'CellSize',[4 4]); %vis4x4 kept for debugging
+    hogs = hog_4x4(1,1:200); %both color svms require 200 features
+    if (strcmp(guessedColor, 'red') == 1)
+        guessedSuit = getredsuitSVM(hogs);
+     else
+       guessedSuit = getblacksuitSVM(hogs);
+    end
 
 end
 
@@ -23,8 +21,7 @@ function prediction = getredsuitSVM(props)
 %svm model is trained with the reducedfeatures matrix, and the passed
 %properties must contain 200 features to match
 load Red_Pip_Hog_Features
-[label,score] = predict(SVMModel,props);
-prediction = label;
+[prediction,~] = predict(SVMModel,props); 
 
 end
 
@@ -37,7 +34,6 @@ function prediction = getblacksuitSVM(props)
 %svm model is trained with the reducedfeatures matrix, and the passed
 %properties must contain 200 features to match
 load Black_Pip_Hog_Features
-[label,score] = predict(SVMModel,props); %use the model to make a prediction based on based in properties
-prediction = label;
+[prediction,~] = predict(SVMModel,props); %use the model to make a prediction based on based in properties
 
 end

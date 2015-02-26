@@ -35,7 +35,6 @@ function classification = classifyCard(inputImage, guessedColor, jon)
         d = pdist(X,'euclidean');
         
         symbol = imcrop(inputImage, props(i).BoundingBox);
-        imshow(symbol);
         features = getproperties(symbol);
         compactness = features(1);
         

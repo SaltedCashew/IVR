@@ -1,7 +1,12 @@
-function new = testing2(numSymbol) %used with buildMatrix for building matrices for svms
+%used with buildMatrix for building matrices for svms
+%not used in final cardDriver for identifying cards but is used to assist
+%in making feature vectors to train the SVMs on
 
-
-% Extract HOG features and HOG visualization
+function new = testing2(numSymbol) 
+%Code taken from http://uk.mathworks.com/help/vision/examples/digit-classification-using-hog-features.html
+%Extract HOG features and HOG visualization
+%features contained in hog_4x4.
+%vis_4x4 allows for plotting
 
 [hog_4x4, vis4x4] = extractHOGFeatures(numSymbol,'CellSize',[4 4]);
 hog_4x4 = hog_4x4(1,1:400);
