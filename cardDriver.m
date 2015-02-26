@@ -47,7 +47,6 @@ end
 hold off;
 
 commonSuit = classifyCard(mainimg, guessedColor, jon);
-disp(commonSuit);
 
 figure('name', 'Binary Image');
 imshow(mainimg);
