@@ -1,5 +1,5 @@
 
-function main = cardDriver(image, show)
+function main = cardDriver(image)
 jon = 0; %used for debuging
 original = imread(image);
 

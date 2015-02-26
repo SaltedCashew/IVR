@@ -28,7 +28,7 @@ function run = testall() %does what it says. tests all 64 cards and prints resul
     for i=1:32
         img = strcat('images/train',num2str(i),'.jpg');
         
-        result = cardDriver(img, 0);
+        result = cardDriver(img);
         if(strcmp(result, trainingset(i)))
             disp('CORRECT!');
         else
@@ -43,7 +43,7 @@ function run = testall() %does what it says. tests all 64 cards and prints resul
     for k=1:32
         img = strcat('images/test',num2str(k),'.jpg');
         %disp(strcat(img,' :',{' '}));
-        result = cardDriver(img, 0);
+        result = cardDriver(img);
          if(strcmp(result, testset(k)))
             disp('CORRECT!');
         else
