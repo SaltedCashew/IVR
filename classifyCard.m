@@ -27,7 +27,7 @@ function classification = classifyCard(inputImage, guessedColor, jon)
         
         if (d < (2.5 * averageDist)) && (compactness < 3)
             if(jon == 0)
-                guessedSuit = getSuit(guessedColor, pipSymbol);
+                guessedSuit = getSuit(guessedColor, symbol);
             else
                 guessedSuit = 'heart';
             end
@@ -47,20 +47,21 @@ function classification = classifyCard(inputImage, guessedColor, jon)
             end
         end 
     end
-    
+    disp(suits(1));
+    disp(suits(2));
     [val, index] = max(suits);
     % return the most commonly classified suit
     if index == 1
-        classification = 'HEARTS';
+        classification = 'heart';
     
     elseif index == 2
-        classification = 'DIAMONDS';
+        classification = 'diamond';
     
     elseif index == 3
-        classification = 'CLUBS';
+        classification = 'club';
     
     elseif index == 4
-        classification = 'SPADES';
+        classification = 'spade';
     end
 
 end

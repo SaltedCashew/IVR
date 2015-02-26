@@ -35,6 +35,7 @@ imshow(original);
 % determine the number of symbols on the card
 count = getSymbolCount(mainimg);
 
+%newCardNumber = getNewNumberCount(mainimg, guessedColor);
 % numObjects is equal to the number of symbols in the image; card # = #
 % symbols - 4
 cardNumber = count - 4;
@@ -47,18 +48,18 @@ hold off;
 
 % choose the 3rd objects in props (it is a suit symbol) and crop it from
 % the binary image
-pipSymbol = imcrop(mainimg, props(3).BoundingBox);
-if(jon == 0)
-    guessedSuit = getSuit(guessedColor, pipSymbol);
-else
-    guessedSuit = 'heart';
-end
+% pipSymbol = imcrop(mainimg, props(3).BoundingBox);
+% if(jon == 0)
+%     guessedSuit = getSuit(guessedColor, pipSymbol);
+% else
+%     guessedSuit = 'heart';
+% end
 
-commonSuit = classifyCard(mainimg, guessedColor, jon);
-disp(commonSuit);
+ commonSuit = classifyCard(mainimg, guessedColor, jon);
+ disp(commonSuit);
 
 figure('name', 'Binary Image');
 imshow(mainimg);
-main = strcat(num2str(cardNumber), {' '},'of', {' '}, guessedSuit);
+main = strcat(num2str(cardNumber), {' '},'of', {' '}, commonSuit);
 disp(strcat( main, 's'));
 end
