@@ -48,12 +48,12 @@ hold off;
 
 % choose the 3rd objects in props (it is a suit symbol) and crop it from
 % the binary image
-pipSymbol = imcrop(mainimg, props(3).BoundingBox);
-if(jon == 0)
-    guessedSuit = getSuit(guessedColor, pipSymbol);
-else
-    guessedSuit = 'heart';
-end
+% pipSymbol = imcrop(mainimg, props(3).BoundingBox);
+% if(jon == 0)
+%     guessedSuit = getSuit(guessedColor, pipSymbol);
+% else
+%     guessedSuit = 'heart';
+% end
 
  commonSuit = classifyCard(mainimg, guessedColor, jon);
  disp(commonSuit);

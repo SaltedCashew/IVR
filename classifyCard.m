@@ -61,7 +61,8 @@ function classification = classifyCard(inputImage, guessedColor, jon)
             end
         end 
     end
-    
+    disp(suits(1));
+    disp(suits(2));
     [val, index] = max(suits);
     % return the most commonly classified suit
     if index == 1
