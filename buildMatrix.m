@@ -1,4 +1,8 @@
-function main = buildMatrix(image, show) %used with testing2 to build matrices for svm
+%not used in final cardDriver for identifying cards but is used to assist
+%in making feature vectors to train the SVMs on
+%used with testing2 to build matrices for svm
+
+function main = buildMatrix(image, show) 
 
 original = imread(image);
 imshow(original);
