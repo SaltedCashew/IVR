@@ -1,28 +1,14 @@
-
+% This function 
 
 function classification = classifyCard(inputImage, guessedColor, jon)
     
     % get the centroid of every remaining object
     stats  = regionprops(inputImage, 'centroid');
-    centroids = cat(1, stats.Centroid);
+    centroids = cat(1, stats.Centroid);    
+    averageDist = averageCentroidDistance(centroids);
     
     [label, numObjects] = bwlabel(inputImage);
-    props = regionprops(label);    
-    
-    % calculate the average centroid (i.e. objects' center of mass)
-    averageCentroid = mean(centroids);
-    x = averageCentroid(1);
-    y = averageCentroid(2);
-    
-    % calculate the average distance from each object's centroid to the
-    % average centroid
-    totalDist = 0;
-    for i = 1:size(centroids, 1)
-        X = [x, y; centroids(i,:)];
-        d = pdist(X,'euclidean');
-        totalDist = totalDist + d;
-    end
-    averageDist = totalDist / size(centroids, 1);
+    props = regionprops(label);
     
     % if the distance from the object's centroid to the average
     % centroid is 2.5 times greater than the average distance and the

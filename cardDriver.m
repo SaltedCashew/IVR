@@ -1,6 +1,6 @@
 
-function main = cardDriver(image, show)
-jon = 0; %used for debuging
+function mainimg = cardDriver(image, show)
+jon = 1; %used for debuging
 original = imread(image);
 %imshow(original);
 
