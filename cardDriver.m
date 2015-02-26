@@ -35,6 +35,7 @@ imshow(original);
 % determine the number of symbols on the card
 count = getSymbolCount(mainimg);
 
+newCardNumber = getNewNumberCount(mainimg, guessedColor);
 % numObjects is equal to the number of symbols in the image; card # = #
 % symbols - 4
 cardNumber = count - 4;

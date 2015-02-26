@@ -1,0 +1,10 @@
+% testing to see if we can scan every region on the card and detect the
+% number of numbers (non-pips) on the card
+function count = getNewNumberCount(img, ~)
+    [~, numObjects] = bwlabel(img);
+    disp(numObjects);
+    count = numObjects;
+   
+    for( i =1:
+end
+

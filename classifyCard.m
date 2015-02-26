@@ -41,7 +41,7 @@ function classification = classifyCard(inputImage, guessedColor, jon)
         
         if (d < (2.5 * averageDist)) && (compactness < 3)
             if(jon == 0)
-                guessedSuit = getSuit(guessedColor, pipSymbol);
+                guessedSuit = getSuit(guessedColor, symbol);
             else
                 guessedSuit = 'heart';
             end
