@@ -33,7 +33,7 @@ box = reshape(box, [4 numObjects]);
 
 
 % find the second-highest left symbol--this should be the suit of the card
-suitSymbol = imcrop(main, props(3).BoundingBox);
+suitSymbol = imcrop(main, props(9).BoundingBox);
 figure
 imshow(suitSymbol);
 % get the properties of the suit
