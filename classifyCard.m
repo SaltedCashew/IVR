@@ -5,7 +5,9 @@ function classification = classifyCard(inputImage, guessedColor, jon)
     % get the centroid of every remaining object
     stats  = regionprops(inputImage, 'centroid');
     centroids = cat(1, stats.Centroid);    
-    averageDist = averageCentroidDistance(centroids);
+    [averageDist, averageCentroid] = averageCentroidDistance(centroids);
+    x = averageCentroid(1);
+    y = averageCentroid(2);
     
     [label, numObjects] = bwlabel(inputImage);
     props = regionprops(label);

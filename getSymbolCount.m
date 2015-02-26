@@ -12,7 +12,9 @@ function count = getSymbolCount(inputImage)
     centroids = cat(1, stats.Centroid);
     
     % calculate the average distance to the average centroid
-    averageDist = averageCentroidDistance(centroids);
+    [averageDist, averageCentroid] = averageCentroidDistance(centroids);
+    x = averageCentroid(1);
+    y = averageCentroid(2);
     
     % if the distance from the object's centroid to the average
     % centroid is 2.5 times greater than the average distance, then do
