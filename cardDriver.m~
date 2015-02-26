@@ -1,7 +1,4 @@
-% This function is the primary driver for our shape recognition algorithm.
-% It orchestrates all the different methods into a cohesive unit. For
-% brevity's sake, details of its functionality can be found in our report.
-
+% This function is the primary driv
 function main = cardDriver(image)
 jon = 0; %used for debuging
 original = imread(image);
