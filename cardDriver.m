@@ -24,7 +24,7 @@ binaryimage = segmentimage(modifiedimage, guessedColor);
 
 % remove any objects that are not at least 150 contiguous bits large
 mainimg = bwareaopen(binaryimage, 150);
-imshow(mainimg);
+%imshow(mainimg);
 
 % create bounding boxes
 [label, numObjects] = bwlabel(mainimg);

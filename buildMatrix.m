@@ -2,7 +2,7 @@
 %in making feature vectors to train the SVMs on
 %used with testing2 to build matrices for svm
 
-function main = buildMatrix(image, show) 
+function main = buildMatrix(image) 
 
 original = imread(image);
 imshow(original);
