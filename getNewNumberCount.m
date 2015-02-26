@@ -11,7 +11,7 @@ function count = getNewNumberCount(img, ~)
     for( i =1:numObjects)  
         region = imcrop(img, props(i).BoundingBox);
         [hog_4x4, vis4x4] = extractHOGFeatures(region,'CellSize',[4 4]);
-        hog_4x4 = hog_4x4(1,1:500);
+        hog_4x4 = hog_4x4(1,1:200);
         [result,score] = predict(SVMModel,hog_4x4);
         disp(result);
         if(strcmp(result,'spade')~=1) && (strcmp(result,'club')~=1)

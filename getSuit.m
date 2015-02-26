@@ -3,12 +3,12 @@ function guessedSuit = getSuit(guessedColor, pipSymbol)
 if (strcmp(guessedColor, 'red') == 1)
     
     [hog_4x4, vis4x4] = extractHOGFeatures(pipSymbol,'CellSize',[4 4]);
-    hog_4x4 = hog_4x4(1,1:400);
+    hog_4x4 = hog_4x4(1,1:200);
     guessedSuit = getredsuitSVM(hog_4x4);
     
 else
     [hog_4x4, vis4x4] = extractHOGFeatures(pipSymbol,'CellSize',[4 4]);
-    hog_4x4 = hog_4x4(1,1:500);
+    hog_4x4 = hog_4x4(1,1:200);
     guessedSuit = getblacksuitSVM(hog_4x4);
 end
 
@@ -20,6 +20,8 @@ function prediction = getredsuitSVM(props)
 %svm model currently has 400 features
 %passed properties must contain 400 features as well
 load Red_Pip_Hog_Features
+features = features(:,1:200);
+SVMModel = fitcecoc(features, labels);
 [label,score] = predict(SVMModel,props);
 prediction = label;
 
@@ -31,6 +33,8 @@ function prediction = getblacksuitSVM(props)
 %svm model currently has 500 features
 %passed properties must contain the same number of features
 load Black_Pip_Hog_Features
+features = features(:,1:200);
+SVMModel = fitcecoc(features, labels);
 %SVMModel = fitcecoc(features, labels); %use for training SVM
 [label,score] = predict(SVMModel,props); %use the model to make a prediction based on based in properties
 prediction = label;

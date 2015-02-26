@@ -65,16 +65,16 @@ function classification = classifyCard(inputImage, guessedColor, jon)
     [val, index] = max(suits);
     % return the most commonly classified suit
     if index == 1
-        classification = 'HEARTS';
+        classification = 'heart';
     
     elseif index == 2
-        classification = 'DIAMONDS';
+        classification = 'diamond';
     
     elseif index == 3
-        classification = 'CLUBS';
+        classification = 'club';
     
     elseif index == 4
-        classification = 'SPADES';
+        classification = 'spade';
     end
 
 end

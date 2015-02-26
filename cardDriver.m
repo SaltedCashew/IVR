@@ -1,5 +1,5 @@
 
-function mainimg = cardDriver(image, show)
+function main = cardDriver(image, show)
 jon = 0; %used for debuging
 original = imread(image);
 %imshow(original);
@@ -35,7 +35,7 @@ imshow(original);
 % determine the number of symbols on the card
 count = getSymbolCount(mainimg);
 
-newCardNumber = getNewNumberCount(mainimg, guessedColor);
+%newCardNumber = getNewNumberCount(mainimg, guessedColor);
 % numObjects is equal to the number of symbols in the image; card # = #
 % symbols - 4
 cardNumber = count - 4;
@@ -55,11 +55,11 @@ else
     guessedSuit = 'heart';
 end
 
-commonSuit = classifyCard(mainimg, guessedColor, jon);
-disp(commonSuit);
+ commonSuit = classifyCard(mainimg, guessedColor, jon);
+ disp(commonSuit);
 
 figure('name', 'Binary Image');
 imshow(mainimg);
-main = strcat(num2str(cardNumber), {' '},'of', {' '}, guessedSuit);
+main = strcat(num2str(cardNumber), {' '},'of', {' '}, commonSuit);
 disp(strcat( main, 's'));
 end
